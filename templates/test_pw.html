@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    {% if email %}
+        <h2 class="text-center">Login Successful!</h2><br/>
+        <div class="card mb-4">
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Field</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>{{ pw_to_check.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>{{ pw_to_check.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td>{{ password }}</td>
+                        </tr>
+                        <tr>
+                            <td>Password Hash</td>
+                            <td>{{ pw_to_check.password_hash }}</td>
+                        </tr>
+                        <tr>
+                            <td>Password Auth Status</td>
+                            <td><span class="text-success">{{ passed }}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <h1 class="text-center">User Authentication</h1><br/>
+        <div class="shadow p-4 mb-5 bg-body rounded">
+            <form action="" method="POST" autocomplete="off">
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                    {{ form.email.label(class="form-label") }} 
+                    {{ form.email(class="form-control") }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.password_hash.label(class="form-label") }} 
+                    {{ form.password_hash(class="form-control") }}
+                </div>
+
+                <div class="text-center">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Admin Module</h1>
+    <p class="text-center mb-4">This page is for the Admin!</p>
+    <hr/>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header text-center bg-secondary text-white">
+            <h5 class="mb-0">Admin Profile Information</h5>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title text-center">Welcome, {{ current_user.name }}!</h5>
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Name:</strong> {{ current_user.name }}</li>
+                        <li class="list-group-item"><strong>Username:</strong> {{ current_user.username }}</li>
+                        <li class="list-group-item"><strong>User ID:</strong> {{ current_user.id }}</li>
+                        <li class="list-group-item"><strong>Email:</strong> {{ current_user.email }}</li>
+                        <li class="list-group-item"><strong>Profession:</strong> {{ current_user.favorite_color }}</li>
+                        <li class="list-group-item"><strong>Date Joined:</strong> {{ current_user.date_added.strftime('%B %d, %Y') }}</li>
+                        <li class="list-group-item"><strong>About Author:</strong> {{ current_user.about_author }}</li>
+                    </ul>
+                </div>
+                <div class="col-md-4 text-center">
+                    {% if current_user.profile_pic %}
+                        <img src="{{ url_for('static', filename='images/' + current_user.profile_pic) }}" class="img-fluid rounded-circle mb-3" width="200" alt="Profile Picture">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/admin.png') }}" class="img-fluid rounded-circle mb-3" width="200" alt="Default Profile Picture">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-success">Back to Dashboard</a>
+    </div>
+</div>
+
+{% endblock %}

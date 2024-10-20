@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+{% if id == current_user.id %}
+    <h1 class="text-center">Update User</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form action="/update/{{ name_to_update.id }}" method="POST" autocomplete="off">
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                    {{ form.name.label(class="form-label") }} 
+                    {{ form.name(class="form-control", value=name_to_update.name) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.username.label(class="form-label") }} 
+                    {{ form.username(class="form-control", value=name_to_update.username) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.email.label(class="form-label") }} 
+                    {{ form.email(class="form-control", value=name_to_update.email) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form.favorite_color.label(class="form-label") }} 
+                    {{ form.favorite_color(class="form-control", value=name_to_update.favorite_color) }}
+                </div>
+
+                <div class="text-center">
+                    {{ form.submit(class="btn btn-secondary") }}
+                    <a href="#" class="btn btn-danger ms-2" aria-label="Delete User" 
+                       onclick="if(confirm('Do you want to delete your profile?')) { window.location='{{ url_for('delete', id=id) }}'; }">Delete</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% else %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        Sorry! You can't update this user.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <h2 class="text-center">Access Denied</h2>
+{% endif %}
+
+<h2 class="text-center mt-4">Registered Users</h2>
+<table class="table table-hover table-bordered table-striped mt-4">
+    <tbody>
+        {% for our_user in our_users %}
+            <tr>
+                <td>{{ our_user.id }}. {{ our_user.name }} - {{ our_user.email }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

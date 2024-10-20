@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+{% if current_user.is_authenticated %}
+<h1 class="text-center mb-4">Add Blog Post</h1>
+
+<div class="card shadow-sm mb-5">
+    <div class="card-body">
+        <form action="" method="POST" autocomplete="off">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.title.label(class="form-label") }} 
+                {{ form.title(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.slug.label(class="form-label") }} 
+                {{ form.slug(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.content.label(class="form-label") }} 
+                {{ form.content(class="form-control", rows="8") }}
+            </div>
+
+            <div class="text-center">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='content') }}
+    </div>
+</div>
+
+{% else %}
+<h2 class="text-center mt-5">You must be logged in to add a blog post</h2>
+<br/>
+<div class="text-center">
+    <h3>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary">Login Here</a> to access this page
+    </h3>
+</div>
+{% endif %}
+
+{% endblock %}

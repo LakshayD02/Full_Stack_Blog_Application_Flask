@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+
+    {% if name %}
+        <h1 class="text-center">User Added!</h1>
+
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <table class="table table-hover table-bordered table-striped">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Profession</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for our_user in our_users %}
+                        <tr>
+                            <td class="text-center">{{ our_user.id }}</td>
+                            <td class="text-center"><a href="{{ url_for('update', id=our_user.id) }}">{{ our_user.name }}</a></td>
+                            <td class="text-center">{{ our_user.email }}</td>
+                            <td class="text-center">{{ our_user.favorite_color }}</td>
+                            <td class="text-center">
+                                <a href="{{ url_for('delete', id=our_user.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{ url_for('update', id=our_user.id) }}" class="btn btn-primary btn-sm">Update</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    {% else %}
+        <h1 class="text-center">User Registration</h1>
+        
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <form action="" method="POST" autocomplete="off">
+                    {{ form.hidden_tag() }}
+
+                    <div class="mb-3">
+                        {{ form.name.label(class="form-label") }} 
+                        {{ form.name(class="form-control") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.username.label(class="form-label") }} 
+                        {{ form.username(class="form-control") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.email.label(class="form-label") }} 
+                        {{ form.email(class="form-control") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.favorite_color.label(class="form-label") }} 
+                        {{ form.favorite_color(class="form-control") }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.password_hash.label(class="form-label") }} 
+                        {{ form.password_hash(class="form-control") }}
+                        {% if form.password_hash.errors %}
+                            <div class="alert alert-danger">
+                                {{ form.password_hash.errors[0] }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.password_hash2.label(class="form-label") }} 
+                        {{ form.password_hash2(class="form-control") }}
+                        {% if form.password_hash2.errors %}
+                            <div class="alert alert-danger">
+                                {{ form.password_hash2.errors[0] }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="text-center">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h2 class="text-center">Registered Users</h2>
+                <table class="table table-hover table-bordered table-striped">
+                    <thead class="table-light text-center">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Profession</th>
+                            <th>Password Hash</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for our_user in our_users %}
+                        <tr>
+                            <td class="text-center">{{ our_user.id }}</td>
+                            <td class="text-center">{{ our_user.name }}</td>
+                            <td class="text-center">{{ our_user.username }}</td>
+                            <td class="text-center">{{ our_user.email }}</td>
+                            <td class="text-center">{{ our_user.favorite_color }}</td>
+                            <td class="text-center text-truncate" style="max-width: 150px;">{{ our_user.password_hash }}</td>
+                            <td class="text-center">
+                                <a href="{{ url_for('delete', id=our_user.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{{ url_for('update', id=our_user.id) }}" class="btn btn-primary btn-sm">Update</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

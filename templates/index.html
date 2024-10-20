@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid px-0">
+  <!-- Hero Section -->
+  <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-light" style="background-image: url('https://images.unsplash.com/photo-1432821596592-e2c18b78144f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center;">
+    <div class="col-md-8 p-lg-5 mx-auto my-5">
+      <h1 class="display-4 fw-bold text-white">Welcome to My Blog</h1>
+      <p class="lead fw-normal text-white mb-4">Sharing insights, stories, and experiences from around the world.</p>
+      <a class="btn bg-light" href="#featured">Read Featured Post</a>
+    </div>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+  </div>
+
+  <div class="container mt-5">
+    <!-- Featured Post -->
+    <section id="featured" class="mb-5">
+      <h2 class="text-center mb-4">Featured Post</h2>
+      <div class="card shadow">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="img-fluid rounded-start h-100 object-fit-cover" alt="Featured post image">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h3 class="card-title">Exploring the World of Flask</h3>
+              <p class="card-text">In this post, we dive deep into the Flask framework, exploring its features and how to get started with web development. Learn about routing, templates, and database integration in this comprehensive guide.</p>
+              <a href="/posts" class="btn btn-primary">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="mb-5">
+      <div class="row">
+        <div class="col-md-6">
+          <h3>About This Blog</h3>
+          <p>This blog serves as a platform for sharing valuable insights and experiences. Here, you will find a variety of articles covering topics such as technology, lifestyle, and personal development.</p>
+        </div>
+        <div class="col-md-6">
+          <h3>About the Developer</h3>
+          <p>Hello! My name is {{ first_name }}. I'm a passionate web developer with a love for creating intuitive and engaging user experiences. I believe in the power of sharing knowledge and building a community through blogging.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="mb-5">
+      <h3 class="text-center mb-4">Features of This Blog App</h3>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-phone me-2"></i>Responsive Design</h5>
+              <p class="card-text">Our blog looks great on all devices, from mobile phones to desktop computers.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-person-circle me-2"></i>User Accounts</h5>
+              <p class="card-text">Sign up and log in for a personalized experience and to interact with posts.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-chat-dots me-2"></i>Comments</h5>
+              <p class="card-text">Engage with the community by leaving comments on posts and replying to others.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Posts Section -->
+    <section class="mb-5">
+      <h3 class="text-center mb-4">Latest Blog Posts</h3>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for post in latest_posts %}
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <img src="{{ post.image_url }}" class="card-img-top" alt="{{ post.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p class="card-text">{{ post.summary }}</p>
+              <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-outline-primary">Read More</a>
+            </div>
+            <div class="card-footer text-muted">
+              Posted on {{ post.date.strftime('%B %d, %Y') }}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+
+  <!-- Newsletter Section -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+          <h3 class="mb-4">Subscribe to Our Newsletter</h3>
+          <form onsubmit="return confirmSubscription();">
+            <div class="input-group mb-3">
+              <input type="email" class="form-control" placeholder="Enter your email" aria-label="Email" aria-describedby="button-addon2" required>
+              <button class="btn btn-primary" type="submit" id="button-addon2">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light py-5 mt-5">
+    <div class="container-fluid px-4 px-md-5">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <h5 class="mb-3">About Us</h5>
+          <p>We're passionate about sharing knowledge and experiences through our blog. Our mission is to inspire, educate, and connect people through engaging content.</p>
+          <p>Join us on this journey of discovery and learning!</p>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5 class="mb-3">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+            <li><a href="#" class="text-light text-decoration-none">About</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Blog</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Contact</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="mb-3">Latest Posts</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Exploring the World of Flask</a></li>
+            <li><a href="#" class="text-light text-decoration-none">10 Tips for Better Web Design</a></li>
+            <li><a href="#" class="text-light text-decoration-none">The Future of AI in Web Development</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="mb-3">Stay Connected</h5>
+          <p>Follow us on social media and subscribe to our newsletter for the latest updates.</p>
+          <ul class="list-inline mb-3">
+            <li class="list-inline-item"><a href="#" class="text-light fs-5"><i class="bi bi-facebook"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="text-light fs-5"><i class="bi bi-twitter"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="text-light fs-5"><i class="bi bi-instagram"></i></a></li>
+            <li class="list-inline-item"><a href="#" class="text-light fs-5"><i class="bi bi-linkedin"></i></a></li>
+          </ul>
+          <form>
+            <div class="input-group mb-3">
+              <input type="email" class="form-control" placeholder="Enter your email" aria-label="Email" aria-describedby="button-addon2" required>
+              <button class="btn btn-outline-light" type="submit" id="button-addon2">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="row">
+        <div class="col-md-6 text-center text-md-start">
+          <p class="mb-0">&copy; {{ current_year }} Blogger. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item"><a href="#" class="text-light text-decoration-none">Terms of Service</a></li>
+            <li class="list-inline-item">|</li>
+            <li class="list-inline-item"><a href="#" class="text-light text-decoration-none">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+function confirmSubscription() {
+    return confirm("Are you sure to subscribe to our newsletter?");
+}
+</script>
+
+{% endblock %}

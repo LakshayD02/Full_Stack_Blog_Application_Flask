@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+<h1 class="text-center mb-4">Dashboard</h1>
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-header text-center bg-secondary text-white">
+        Profile Information
+    </div>
+    <div class="card-body">
+        <h5 class="card-title text-center">Welcome, {{ current_user.name }}! You are Successfully Logged In!</h5>
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Name:</strong> {{ current_user.name }}</li>
+                    <li class="list-group-item"><strong>Username:</strong> {{ current_user.username }}</li>
+                    <li class="list-group-item"><strong>User ID:</strong> {{ current_user.id }}</li>
+                    <li class="list-group-item"><strong>Email:</strong> {{ current_user.email }}</li>
+                    <li class="list-group-item"><strong>Profession:</strong> {{ current_user.favorite_color }}</li>
+                    <li class="list-group-item"><strong>Date Joined:</strong> {{ current_user.date_added.strftime('%B %d, %Y') }}</li>
+                    <li class="list-group-item"><strong>About Author:</strong> {{ current_user.about_author }}</li>
+                </ul>
+            </div>
+            <div class="col-md-4 text-center">
+                {% if current_user.profile_pic %}
+                    <img src="{{ url_for('static', filename='images/' + current_user.profile_pic) }}" class="img-fluid rounded-circle mb-3" width="200" alt="Profile Picture">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/admin.png') }}" class="img-fluid rounded-circle mb-3" width="200" alt="Default Profile Picture">
+                {% endif %}
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ url_for('logout')}}" class="btn btn-outline-danger">Logout</a>
+            <a href="{{ url_for('update', id=current_user.id)}}" class="btn btn-secondary">Update Profile</a>
+            <a href="#" class="btn btn-danger" 
+               onclick="if(confirm('Do you want to delete your profile?')) { window.location='{{ url_for('delete', id=current_user.id) }}'; }">Delete Profile</a>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-header text-center bg-secondary text-white">
+        Update Profile Information
+    </div>
+    <div class="card-body">
+        <form action="/dashboard" method="POST" enctype="multipart/form-data" autocomplete="off">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.name.label(class="form-label") }} 
+                {{ form.name(class="form-control", value=name_to_update.name) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.username.label(class="form-label") }} 
+                {{ form.username(class="form-control", value=name_to_update.username) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.email.label(class="form-label") }} 
+                {{ form.email(class="form-control", value=name_to_update.email) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.favorite_color.label(class="form-label") }} 
+                {{ form.favorite_color(class="form-control", value=name_to_update.favorite_color) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.about_author.label(class="form-label") }} 
+                <textarea name="about_author" class="form-control">{{ name_to_update.about_author }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                {{ form.profile_pic.label(class="form-label") }} 
+                {{ form.profile_pic(class="form-control") }}
+            </div>
+
+            <div class="text-center">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
