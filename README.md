@@ -21,4 +21,4 @@ This full stack blogging application, Blogger, combines modern design with essen
 
 # Website Look
 
-![SS-1](https://github.com/LakshayD02/Pathfinding_Visualization_Tool_Python/blob/main/A-Star%20Algorithm.png) <br/>
+![SS-1](https://github.com/LakshayD02/Full_Stack_Blog_Application_Flask/blob/main/Website%20Photos/1.png) <br/>
