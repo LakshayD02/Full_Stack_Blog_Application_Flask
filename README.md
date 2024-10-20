@@ -18,3 +18,7 @@ Blogger is a comprehensive full stack web application designed for seamless blog
 - Rich Text Editor: Integrated rich text editing capabilities allow users to format their blog posts easily, enabling the inclusion of multimedia and diverse content styles.
 
 This full stack blogging application, Blogger, combines modern design with essential functionalities, catering to both casual users and content creators. By leveraging Flask for the backend and MySQL/SQLite for data storage, it offers a scalable and efficient platform for sharing ideas and fostering community interaction.
+
+# Website Look
+
+[SS-11](https://github.com/LakshayD02/Full_Stack_Blog_Application_Flask/blob/main/Website%20Photos/1.png)
