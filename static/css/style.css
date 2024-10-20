@@ -1,0 +1,139 @@
+h1{
+    color: black;
+    font-size: 50px;
+}
+
+body{
+    background: #f4f4f4;
+}
+
+#demo{
+    font-size: 20px;
+    color: black;
+}
+
+.table {
+    margin-top: 20px; /* Space above the table */
+    width: 100%; /* Full width for table */
+}
+
+.table th, .table td {
+    vertical-align: middle; /* Center content in table cells */
+}
+
+footer {
+    font-size: 0.9rem; /* Smaller font for footer */
+    color: #6c757d; /* Gray color for footer text */
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center; /* Center the links */
+    flex-wrap: wrap; /* Allow links to wrap on smaller screens */
+}
+
+.nav-link {
+    position: relative;
+    color: #fff; /* Default link color */
+    transition: color 0.3s ease; /* Transition for link color */
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px; /* Position below the text */
+    height: 2px; /* Underline thickness */
+    background: #f8f9fa; /* Underline color */
+    transform: scaleX(0); /* Start hidden */
+    transition: transform 0.3s ease; /* Transition for the underline */
+}
+
+.nav-link:hover {
+    color: #ffffff; /* Change link color on hover */
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1); /* Show underline on hover */
+}
+
+.search-results {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #333;
+}
+/* 
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.results-table th,
+.results-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.results-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+    color: #555;
+}
+
+.results-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.post-title {
+    font-size: 1.2em;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.post-title:hover {
+    text-decoration: underline;
+}
+
+.post-excerpt {
+    color: #555;
+}
+
+p {
+    color: #666;
+} */
+
+.navbar {
+    background-color: #2c3e50;
+}
+.navbar-brand, .nav-link {
+    color: #ecf0f1 !important;
+}
+.nav-link:hover, .nav-link:focus {
+    color: #3498db !important;
+}
+.navbar-nav .nav-link.active {
+    color: #3498db !important;
+}
+.dropdown-menu {
+    background-color: #34495e;
+}
+.dropdown-item {
+    color: #ecf0f1;
+}
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #3498db;
+    color: #fff;
+}
+
